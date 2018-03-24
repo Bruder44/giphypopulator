@@ -1,0 +1,23 @@
+body {
+background: grey;
+}
+
+.button-list {
+margin: 15px 5px;
+}
+
+.button-submit {
+margin-top: 10px;
+}
+
+.gif-margin {
+margin-bottom: 25px;
+}
+
+.panel {
+background-color: black;
+}
+.text-center {
+font-family: Courier New, Courier, monospace;
+font-weight: bold;
+}
