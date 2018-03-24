@@ -1,7 +1,7 @@
-var reactions = ["happy", "silly", "bored", "enthusiastic", "depressed", "peaceful"];
+var reactions = ["happy", "abide", "depressed", "silly", "bored", "scared"];
 
 // Creates buttons when the page loads so the user has some choices to pick from.
-createReactionButtons();
+createButtons();
 
 
 // When the reaction button is clicked this creates a new variable, 
@@ -11,43 +11,43 @@ createReactionButtons();
 $('#addReaction').on('click', function() {
     var reactionEntered = $('#reactionInput').val().trim();
     reactions.push(reactionEntered);
-    $('#reactionInput').val('');
-    createReactionButtons();
+    $('#reactionsInput').val('');
+    createButtons();
 
     return false;
 });
 
-//On click event to start, 
+//On click load event
 $(document.body).on('click', '.button-list', function() {
-    // Creates a variable and assigns the value to the reaction clicked
+    // Creates a variable and assigns the value to the name of the reaction clicked/
     var reactionClicked = $(this).data('reaction');
-    // Creates a variable to hold the query string for the Giphy API request and adds the reactions name to the query string.
+    // Creates a variable to hold the query string for the Giphy API request and adds the new name to the query string.
     var query = 'https://api.giphy.com/v1/gifs/search?q=' + reactionClicked + '&limit=10&api_key=HshQJL3vVtLAN2CKpwsQsDCmQNMVJZnS';
 
-    // Empties the reactions element so new gifs are loaded in on each click of a reactions button.
+    // Empties the reactions element so new gifs are loaded in on each click of a reaction button.
     $('#reactions').empty();
 
 
-    //AJAX request using the query string outlined above.
+    // Makes an AJAX request using the query string outlined above.
     $.ajax({
         url: query,
         method: 'GET'
-            //function for when the request is recieved back from the API.
+            // Performs this anonymous function when the request is recieved back from the API.
     }).done(function(response) {
-        // Creates a new variable and assigns its value to the response data.
+        // Creates a new variable and assigns its value to the responses JSON data object.
         var results = response.data;
 
-        // Loop for the Results
+        // Runs a for loop for the number of recieved results. 
         for (i = 0; i < results.length; i++) {
-            // Assigning new variable 
+            // Creates a new variable and assigns a div with a class of col-sm-4 to it.
             var newGif = $('<div class="col-sm-4">');
-            // Creates a new variable and assigns a rating from the response 
+            // Creates a new variable and assigns a rating from the response to it.
             var rating = results[i].rating.toUpperCase();
-            // Displays Rating in Uppercase letter.
+            // Creates a new variable and assigns a paragraph to it with the HTML of the gifs rating.
             var p = $('<p>').html('Rating: ' + rating);
-            // Centers the text of the display
+            // Adds the text-center class to the p variable.
             p.addClass('text-center');
-            // Creates a new variable and assigns an image
+            // Creates a new variable and assigns a img.
             var img = $('<img>');
 
             // Adds a src to the img variable of the gifs still image.
@@ -70,7 +70,7 @@ $(document.body).on('click', '.button-list', function() {
     });
 });
 
-// Making Gifs animate when clicked//still when loaded//
+
 $(document.body).on('click', '.gif', function() {
     var click = $(this).attr('data-clicked');
 
@@ -84,9 +84,10 @@ $(document.body).on('click', '.gif', function() {
 });
 
 
-//CREATING BUTTON
-// FUNCTIONS ---------------------------
-function createReactionButtons() {
+//
+// FUNCTIONS --------------------------------------------------------------------------------------------------------------
+//
+function createButtons() {
     $('#reactionButtons').empty();
 
     for (var i = 0; i < reactions.length; i++) {
@@ -95,3 +96,4 @@ function createReactionButtons() {
         $('#reactionButtons').append(button);
     }
 }
+
